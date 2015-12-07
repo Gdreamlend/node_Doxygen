@@ -4,7 +4,8 @@
     el: $('body'), // attaches `this.el` to an existing element.
     events: {
        'focus  #parametervalue': 'addItem',//blur
-       'click button#testport': 'getResult'
+       'click button#testport': 'getResult',
+       'click button#BDocument':'saveDocument'
     },
     // `initialize()`: Automatically called upon instantiation. Where you make all types of bindings, _excluding_ UI events, such as clicks, etc.
     initialize: function(){
@@ -20,7 +21,7 @@
       $(this.el).append("<ul> <li>输入参数</li></ul>")
       $(this.el).append("<div class = 'varDIV'><div class = 'variantDIV'><p>参数名称 ：参数值 &nbsp &nbsp <input class = 'parametername' type='text' id='parametername'> ：<input class ='parametervalue' type='text' id='parametervalue'></p></div></div>")
       $(this.el).append(" &nbsp &nbsp<button id='testport'>调用接口测试</button> &nbsp &nbsp");
-      $(this.el).append("<button id='BDocument'>生成接口文档</button>");
+      $(this.el).append("<button id='BDocument'>存入数据库</button>");
       $(this.el).append("<ul> <li>返回数据</li></ul>")
       $(this.el).append(" &nbsp &nbsp<textarea id='myDiv' style='width:560px; height:320px;'></textarea>");
     },
@@ -33,7 +34,7 @@
     },
 
     getResult: function(){
-        $(document).ready(function(){
+      $(document).ready(function(){
       $("#testport").click(function(){
         var porturl = $("#porturl").val();
         var portway = $("#portway").val();
@@ -45,7 +46,7 @@
           console.log(parametervalues)
           portpariants[parameternames] =parametervalues;
         });
-        console.log(portpariants);
+        //console.log(portpariants);
       // var portvariants="";
       //   var parameternames = $('.parametername');
       //   var parametervalues = $('.parametervalue');
@@ -101,9 +102,59 @@
 
       });
   });
-    }
-  });
+ },
 
+ saveDocument: function(){
+  $(document).ready(function(){
+    $("#BDocument").click(function(){
+      var message = {};
+      var methodname;
+      $(".variantDIV").each(function() {
+
+        var parameternames = $(this).find(".parametername").val();
+
+        var parametervalues = $(this).find(".parametervalue").val();
+
+         if(parameternames =="Method"){
+          //message["portmethod"] = parametervalues;
+          methodname = parametervalues;
+         }
+         else{
+          message["portmethod"] = methodname;
+          message[parameternames] =parametervalues;
+         }
+         console.log(message);
+      });
+
+          $.ajax({
+          url: "/insert1",
+          type: "POST",
+          dataType: 'json',
+          data: message //{Method:'GetServiceOrderListByOpenId',openId:'1'}
+        })
+        .done(function(res){
+          if(res.status == 200){
+            if(res.data.length == 0){
+              $("#myDiv").val("没有数据");
+              alert(2);
+            }
+            else{
+              alert(1);
+              var last = JSON.stringify(res);
+              console.log(last);
+              $("#myDiv").val(last);
+              console.log($("#myDIV"));
+          }
+        }
+        else{
+            swal("呀",res.msg,"error");
+          }
+        })
+     });
+   });
+ }
+
+});
   // **listView instance**: Instantiate main app view.
   var listView = new ListView();
 })(jQuery);

@@ -10,9 +10,6 @@ var idx = 0;
 	var tasks = [];
 
 route.get('/',function *(next){
-	// var filepath = path.join(__dirname, 'views/index.html');
-	// var tpl = yield fs.readFile(filepath,'utf8');
-
 	var session = this.session;
 	var count = this.session.count || 0;
 	var name = 'gjj';
@@ -24,9 +21,18 @@ route.get('/',function *(next){
 		count:this.session.count,
 		name:this.session.name
 	});
+});
 
-	// var html = ejs.render(tpl,{tasks:tasks});
-	// this.body = html;
+route.post('/insert1', function *(){
+	var post = yield parse(this);
+	// var message=post.message;
+	// console.log(message);
+	//this.body=post;
+	this.body = {ok:true};
+});
+
+route.get('/test',function*(){
+	this.body='test';
 });
 
 // route.get('/name',function *(next){
