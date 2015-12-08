@@ -4,6 +4,8 @@ var ejs = require('ejs');
 var Router = require('koa-router');
 var parse = require('co-body');
 
+var mysqlinsertp = require('./public/mysqloperate.js');
+
 var route = new Router();
 
 var idx = 0;
@@ -25,9 +27,23 @@ route.get('/',function *(next){
 
 route.post('/insert1', function *(){
 	var post = yield parse(this);
-	// var message=post.message;
-	// console.log(message);
-	//this.body=post;
+	//将接收到的json数据放到一个二维数组中
+	var mothodname = post["portmethod"];
+	console.log(post);
+	delete post.portmethod
+	var array_1 = [];
+	for (var item in post){
+		array_1.push([item,post[item],mothodname]);
+	}
+	//将数据放到数据库中
+	console.log("234455");
+
+    yield mysqlinsertp.conn();
+
+	yield mysqlinsertp.insert(array_1);
+
+
+
 	this.body = {ok:true};
 });
 

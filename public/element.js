@@ -125,7 +125,7 @@
          }
          console.log(message);
       });
-
+      console.log("START AJAX");
           $.ajax({
           url: "/insert1",
           type: "POST",
