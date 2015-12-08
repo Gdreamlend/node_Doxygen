@@ -4,17 +4,17 @@ var mysql = require('mysql'),
 var client = mysql.createConnection(settings.mysql);
 
 
-exports.conn =function(){
+// exports.conn =function(){
 
-	client.connect(function(error, results) {
-		if(error) {
-		console.log('Connection Error: ' + error.message);
-		return;
-		}
-		console.log('Connected to MySQL');
-	});
-	return [];
-};
+// 	client.connect(function(error, results) {
+// 		if(error) {
+// 		console.log('Connection Error: ' + error.message);
+// 		return;
+// 		}
+// 		console.log('Connected to MySQL');
+// 	});
+// 	return [];
+// };
 
 exports.insert=function(value){
 	var values = value;

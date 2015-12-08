@@ -38,13 +38,13 @@ route.post('/insert1', function *(){
 	//将数据放到数据库中
 	console.log("234455");
 
-    yield mysqlinsertp.conn();
+    // yield mysqlinsertp.conn();
 
-	yield mysqlinsertp.insert(array_1);
+	mysqlinsertp.insert(array_1);
 
 
 
-	this.body = {ok:true};
+	this.body = {status:200,ok:true,data:[]};
 });
 
 route.get('/test',function*(){

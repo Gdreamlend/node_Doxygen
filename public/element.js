@@ -46,26 +46,6 @@
           console.log(parametervalues)
           portpariants[parameternames] =parametervalues;
         });
-        //console.log(portpariants);
-      // var portvariants="";
-      //   var parameternames = $('.parametername');
-      //   var parametervalues = $('.parametervalue');
-      // for(i=0;i<parameternames.length;i++)
-      // {
-      //   if(parameternames.eq(i).val() != '' && parametervalues.eq(i).val() != '')
-      //   {
-      //     portvariants += parameternames.eq(i).val() + '=' +parametervalues.eq(i).val() + '&';
-      //   }
-      // }
-      // if(portvariants != '')
-      // {
-      //   portvariants = '?' + portvariants;
-      //   portvariants=portvariants.substring(0,portvariants.length-1);
-      //   porturl += portvariants;
-      // }
-
-      // alert(portvariants);
-
 
     $.ajax({
       url: porturl,//"http://localhost:8129/yiyatong/StationSearch.ashx",
@@ -85,9 +65,6 @@
           console.log(last);
           $("#myDiv").val(last);
           console.log($("#myDIV"));
-
-          // document.getElementById('myDIV').innerHTML = "last";
-          // console.log(document.getElementById("myDIV").innerHTML);
       }
 
     }
@@ -105,52 +82,45 @@
  },
 
  saveDocument: function(){
-  $(document).ready(function(){
-    $("#BDocument").click(function(){
+  // $(document).ready(function(){
+  //   $("#BDocument").click(function(){
       var message = {};
       var methodname;
       $(".variantDIV").each(function() {
 
         var parameternames = $(this).find(".parametername").val();
-
         var parametervalues = $(this).find(".parametervalue").val();
 
          if(parameternames =="Method"){
-          //message["portmethod"] = parametervalues;
           methodname = parametervalues;
          }
          else{
           message["portmethod"] = methodname;
           message[parameternames] =parametervalues;
          }
-         console.log(message);
       });
-      console.log("START AJAX");
-          $.ajax({
+      console.log(message);
+        $.ajax({
           url: "/insert1",
           type: "POST",
           dataType: 'json',
-          data: message //{Method:'GetServiceOrderListByOpenId',openId:'1'}
-        })
-        .done(function(res){
-          if(res.status == 200){
-            if(res.data.length == 0){
-              $("#myDiv").val("没有数据");
-              alert(2);
+          data: message,
+          success:function(res){
+            if(res.status == 200){
+                if(res.data.length == 0){
+                  console.log("no data");
+                }
+                else{
+                  var last = JSON.stringify(res);
+                  console.log(last);
+              }
             }
-            else{
-              alert(1);
-              var last = JSON.stringify(res);
-              console.log(last);
-              $("#myDiv").val(last);
-              console.log($("#myDIV"));
+          },
+          error:function(err){
+            console.log(err);
           }
-        }
-        else{
-            swal("呀",res.msg,"error");
-          }
-        })
-     });
+        // })
+     // });
    });
  }
 
