@@ -23,7 +23,19 @@ exports.insert=function(value){
 	console.log(values);
 	client.query(sql, [values], function(err) {
 	    if (err) throw err;
-	    console.log('Inserted to MySQL');
+	    console.log('Inserted  to paramenttable');
+	});
+	return [];
+}
+
+exports.save=function(value){
+	var values = value;
+	var sql = "INSERT INTO mysql_doxygen.invoketable(`projectname`,`portname`,`portway`,`urladdress`,`portreturns`) VALUES ?";
+	console.log(sql);
+	console.log(values);
+	client.query(sql, [values], function(err) {
+	    if (err) throw err;
+	    console.log('Inserted to invoketable');
 	});
 	return [];
 }

@@ -24,7 +24,7 @@ route.get('/',function *(next){
 		name:this.session.name
 	});
 });
-
+//存参数列表
 route.post('/insert1', function *(){
 	var post = yield parse(this);
 	//将接收到的json数据放到一个二维数组中
@@ -37,13 +37,28 @@ route.post('/insert1', function *(){
 	}
 	//将数据放到数据库中
 	console.log("234455");
+	yield mysqlinsertp.insert(array_1);
+	this.body = {status:200,ok:true,data:[]};
+});
 
-    // yield mysqlinsertp.conn();
-
-	mysqlinsertp.insert(array_1);
-
-
-
+//存接口信息
+route.post('/insert2', function *(){
+	var post = yield parse(this);
+	//将接收到的json数据放到一个二维数组中
+	// var mothodname = post["portmethod"];
+	// console.log(post);
+	// delete post.portmethod
+	var array1=[];
+	var array_1 = [];
+	array_1.push(post["projectname"]);
+	array_1.push(post["portname"]);
+	array_1.push(post["portway"]);
+	array_1.push(post["porturl"]);
+	array_1.push(post["portreturn"]);
+	array1.push(array_1);
+	//将数据放到数据库中
+	console.log("insert2");
+	yield mysqlinsertp.save(array1);
 	this.body = {status:200,ok:true,data:[]};
 });
 
