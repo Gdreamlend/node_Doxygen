@@ -115,31 +115,6 @@
   var listView = new ListView();
 })(jQuery);
 
-// function savePortinfo(){
-//   var porturl = $("#porturl").val();
-//   var portway = $("#portway").val();
-// }
-
-// function saveParamentlist(){
-//   var message = {};
-//   var methodname;
-//   $(".variantDIV").each(function() {
-
-//     var parameternames = $(this).find(".parametername").val();
-//     var parametervalues = $(this).find(".parametervalue").val();
-
-//      if(parameternames =="Method"){
-//       methodname = parametervalues;
-//      }
-//      else{
-//       message["portmethod"] = methodname;
-//       message[parameternames] =parametervalues;
-//      }
-//   });
-//   console.log(message);
-//   callAjax("/insert1",message);//存储参数列表
-// }
-
 //AJAX请求
 function callAjax(url,data){
   $.ajax({
