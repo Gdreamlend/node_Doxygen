@@ -20,7 +20,6 @@ exports.insert=function(value){
 	var values = value;
 
 	var sql = "INSERT INTO mysql_doxygen.paramenttable(paremetername,parametervalue,portname) VALUES ?";
-	console.log(values);
 	client.query(sql, [values], function(err) {
 	    if (err) throw err;
 	    console.log('Inserted  to paramenttable');
@@ -31,11 +30,36 @@ exports.insert=function(value){
 exports.save=function(value){
 	var values = value;
 	var sql = "INSERT INTO mysql_doxygen.invoketable(`projectname`,`portname`,`portway`,`urladdress`,`portreturns`) VALUES ?";
-	console.log(sql);
-	console.log(values);
 	client.query(sql, [values], function(err) {
 	    if (err) throw err;
 	    console.log('Inserted to invoketable');
 	});
 	return [];
 }
+
+// exports.selectpro = function (){
+// 	var sql = "SELECT DISTINCT projectname FROM invoketable";
+// 	var projectname;
+// 	yield client.query(sql,function(err,result){
+// 		if(err) throw err;
+// 		projectname = result;
+// 		console.log('select projectname from db');
+// 	});
+// 	return projectname;
+// }
+
+exports.selectpro = function(cb){
+    var sql = "SELECT DISTINCT projectname FROM invoketable";
+    var projectname;
+    client.query(sql,function(err, rows, fields) {
+        if(err) {
+            cb(err, null);
+        } else {
+            projectname = rows[0].projectname;
+
+            console.log('select projectname from db');
+            console.log(rows[0].projectname);
+            cb(null, rows[0].projectname);
+        }
+    });
+};

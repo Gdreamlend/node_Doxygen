@@ -109,7 +109,6 @@
     portinfo["projectname"]='yiyatong';
     callAjax("/insert2",portinfo);//保存接口信息
    }
-
 });
   // **listView instance**: Instantiate main app view.
   var listView = new ListView();

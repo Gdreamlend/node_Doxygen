@@ -34,6 +34,18 @@ route.get('/read',function *(next){
 	});
 });
 
+route.get('/readproject',function *(next){
+	var dataprodect;
+	var a;
+	yield a = mysqlinsertp.selectpro(function(err, res){
+	    if (err) throw err;
+	    dataprodect = res;
+	});
+
+	this.body={status:200,ok:true,data:dataprodect};
+	console.log(this.body);
+});
+
 
 //存参数列表
 route.post('/insert1', function *(){

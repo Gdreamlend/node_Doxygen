@@ -34,3 +34,11 @@
 
 2.Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server sersion for the right syntax to use near '' at line 1
 	字段个数不匹配
+
+3.ReferenceError: yield is not defined
+在获取数据库返回值时，获取值有些困难，这里的时间比较久
+需要认真学学callback, promise, generator
+
+stackoverflow上的提问
+http://stackoverflow.com/questions/34390337/how-to-use-yield-to-return-the-value-in-a-function
+
