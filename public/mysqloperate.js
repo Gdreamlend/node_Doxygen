@@ -48,18 +48,35 @@ exports.save=function(value){
 // 	return projectname;
 // }
 
-exports.selectpro = function(cb){
-    var sql = "SELECT DISTINCT projectname FROM invoketable";
+// exports.selectpro = function(cb){
+//     var sql = "SELECT * FROM invoketable";
+//     var projectname;
+//     client.query(sql,function(err, rows, fields) {
+//         if(err) {
+//             cb(err, null);
+//         } else {
+//             projectname = rows[0].projectname;
+//             console.log('select projectname from db');
+//             console.log(rows[0].projectname);
+//             cb(null, rows[0].projectname);
+//         }
+//     });
+// };
+
+
+exports.selectpro = function(){
+    var sql = "SELECT * FROM invoketable";
     var projectname;
     client.query(sql,function(err, rows, fields) {
         if(err) {
-            cb(err, null);
+           return err;
         } else {
             projectname = rows[0].projectname;
-
             console.log('select projectname from db');
             console.log(rows[0].projectname);
-            cb(null, rows[0].projectname);
+            var result = JSON.parse('{status:200,ok:true,data:rows[0].projectname}');
+            console.log(result);
+            return result;
         }
     });
 };

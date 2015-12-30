@@ -75,31 +75,55 @@
 
       $(this.el).append("<ul> 项目名称  <select id = 'portway'> <option value ='post'> POST </option> <option value ='get'> GET </option> </select> </ul>");
 
+
       $.ajax({
-        url: "/readproject",
-        type: "GET",
-        dataType: 'json',
-        data: null,
-        success:function(res){
-          if(res.status == 200){
-              if(res.data == null){
-                console.log("no data");
+          url: "/readproject",
+          type: "POST",
+          dataType: 'json',
+          data: null,
+          success:function(res){
+            if(res.status == 200){
+                if(res.data.length == 0){
+                  console.log("no data");
+                }
+                else{
+                  var last = JSON.stringify(res);
+                  console.log(last);
+                }
               }
-              else{
-                var last = JSON.stringify(res);
-                console.log(last);
-              }
+            },
+            error:function(err){
+              console.log(err);
             }
-          },
-          error:function(err){
-            console.log(err);
-          }
-        });
+          });
+        }
 
 
-      _(this.collection.models).each(function(item){ // in case collection is not empty
-        self.appendItem(item);
-      }, this);
+      
+      // $.ajax({
+      //   url: "/readproject",
+      //   type: "POST",
+      //   dataType: 'json',
+      //   data: null,
+      //   success:function(res){
+      //     if(res.status == 200){
+      //         if(res.data == null){
+      //           console.log("no data");
+      //         }
+      //         else{
+      //           var last = JSON.stringify(res);
+      //           console.log(last);
+      //         }
+      //       }
+      //     },
+      //     error:function(err){
+      //       console.log(err);
+      //     }
+      //   });
+
+      // _(this.collection.models).each(function(item){ // in case collection is not empty
+      //   self.appendItem(item);
+      // }, this);
     },
     addItem: function(){
       this.counter++;

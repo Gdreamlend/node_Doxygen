@@ -34,16 +34,25 @@ route.get('/read',function *(next){
 	});
 });
 
-route.get('/readproject',function *(next){
+route.post('/readproject',function *(){
 	var dataprodect;
-	var a;
-	yield a = mysqlinsertp.selectpro(function(err, res){
-	    if (err) throw err;
-	    dataprodect = res;
-	});
 
-	this.body={status:200,ok:true,data:dataprodect};
+	// this.body = mysqlinsertp.selectpro(function(err, res){
+	//     if (err) throw err;
+	//     dataprodect = res;
+	//     console.log(res);
+	//     var body = {status:200,ok:true,data:dataprodect};
+	//     console.log(body);
+	//     //return body;
+	// });
+//{ status: 200, ok: true, data: 'projectname1' };//
+	console.log("121212121");
+	this.body = mysqlinsertp.selectpro();
+	
+	console.log(mysqlinsertp.selectpro());
 	console.log(this.body);
+	console.log("dataprodect");
+	console.log(dataprodect);
 });
 
 
@@ -59,7 +68,6 @@ route.post('/insert1', function *(){
 		array_1.push([item,post[item],mothodname]);
 	}
 	//将数据放到数据库中
-	console.log("234455");
 	yield mysqlinsertp.insert(array_1);
 	this.body = {status:200,ok:true,data:[]};
 });
