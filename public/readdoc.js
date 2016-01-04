@@ -96,35 +96,7 @@
               console.log(err);
             }
           });
-        }
-
-
-      
-      // $.ajax({
-      //   url: "/readproject",
-      //   type: "POST",
-      //   dataType: 'json',
-      //   data: null,
-      //   success:function(res){
-      //     if(res.status == 200){
-      //         if(res.data == null){
-      //           console.log("no data");
-      //         }
-      //         else{
-      //           var last = JSON.stringify(res);
-      //           console.log(last);
-      //         }
-      //       }
-      //     },
-      //     error:function(err){
-      //       console.log(err);
-      //     }
-      //   });
-
-      // _(this.collection.models).each(function(item){ // in case collection is not empty
-      //   self.appendItem(item);
-      // }, this);
-    },
+        },
     addItem: function(){
       this.counter++;
       var item = new Item();

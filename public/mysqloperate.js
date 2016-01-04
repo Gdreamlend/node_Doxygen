@@ -48,35 +48,34 @@ exports.save=function(value){
 // 	return projectname;
 // }
 
-// exports.selectpro = function(cb){
-//     var sql = "SELECT * FROM invoketable";
-//     var projectname;
-//     client.query(sql,function(err, rows, fields) {
-//         if(err) {
-//             cb(err, null);
-//         } else {
-//             projectname = rows[0].projectname;
-//             console.log('select projectname from db');
-//             console.log(rows[0].projectname);
-//             cb(null, rows[0].projectname);
-//         }
-//     });
-// };
+ //exports.selectpro = function(cb){
+ //    var sql = "SELECT * FROM invoketable";
+ //    var projectname;
+ //    client.query(sql,function(err, rows, fields) {
+ //        if(err) {
+ //            cb(err, null);
+ //        } else {
+ //            projectname = rows[0].projectname;
+ //            console.log('select projectname from db');
+ //            console.log(rows[0].projectname);
+ //            cb(null, rows[0].projectname);
+ //        }
+ //    });
+ //};
 
 
-exports.selectpro = function(){
-    var sql = "SELECT * FROM invoketable";
-    var projectname;
-    client.query(sql,function(err, rows, fields) {
+exports.selectpro = client.query("SELECT DISTINCT projectname FROM invoketable", function(err, results) {
         if(err) {
+            console.log(err);
            return err;
-        } else {
-            projectname = rows[0].projectname;
-            console.log('select projectname from db');
-            console.log(rows[0].projectname);
-            var result = JSON.parse('{status:200,ok:true,data:rows[0].projectname}');
-            console.log(result);
-            return result;
         }
+        projectname = results[0].projectname;
+        console.log('select projectname from db');
+        console.log(results[0].projectname);
+        var l = '{"status":"200","ok":"true","data":"'+results[0].projectname+'"}';
+        console.log(l);
+        var result = JSON.parse(l);
+        //console.log(l);
+        console.log(result);
+        return result;
     });
-};

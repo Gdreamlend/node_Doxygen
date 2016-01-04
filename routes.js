@@ -47,12 +47,13 @@ route.post('/readproject',function *(){
 	// });
 //{ status: 200, ok: true, data: 'projectname1' };//
 	console.log("121212121");
-	this.body = mysqlinsertp.selectpro();
-	
-	console.log(mysqlinsertp.selectpro());
-	console.log(this.body);
-	console.log("dataprodect");
-	console.log(dataprodect);
+	var proname =[] ;
+	for(var i=0; i < mysqlinsertp.selectpro._results[0].length; i++ ){
+		proname.push(mysqlinsertp.selectpro._results[0][i].projectname);
+	}
+	console.log(proname);
+	result = { status: 200, ok: true, data: proname };
+	this.body = result;
 });
 
 
